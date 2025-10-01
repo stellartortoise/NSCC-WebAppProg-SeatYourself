@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using NSCC_WebAppProg_SeatYourself.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<NSCC_WebAppProg_SeatYourselfContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("NSCC_WebAppProg_SeatYourselfContext") ?? throw new InvalidOperationException("Connection string 'NSCC_WebAppProg_SeatYourselfContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
