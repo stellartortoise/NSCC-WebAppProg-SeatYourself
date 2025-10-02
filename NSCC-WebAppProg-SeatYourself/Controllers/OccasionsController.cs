@@ -49,8 +49,8 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
         // GET: Occasions/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryId");
-            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "VenueId");
+            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "Name");
+            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "Name");
             return View();
         }
 
@@ -59,16 +59,17 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OccasionId,Title,Description,Date,Time,Owner,CreatedAt,VenueId,CategoryId")] Occasion occasion)
+        public async Task<IActionResult> Create([Bind("OccasionId,Title,Description,Date,Time,Owner,VenueId,CategoryId")] Occasion occasion)
         {
+            occasion.CreatedAt = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(occasion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryId", occasion.CategoryId);
-            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "VenueId", occasion.VenueId);
+            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "Name");
+            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "Name");
             return View(occasion);
         }
 
@@ -85,8 +86,8 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryId", occasion.CategoryId);
-            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "VenueId", occasion.VenueId);
+            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "Name", occasion.CategoryId);
+            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "Name", occasion.VenueId);
             return View(occasion);
         }
 
@@ -122,8 +123,8 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "CategoryId", occasion.CategoryId);
-            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "VenueId", occasion.VenueId);
+            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "Name", occasion.CategoryId);
+            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "Name", occasion.VenueId);
             return View(occasion);
         }
 
