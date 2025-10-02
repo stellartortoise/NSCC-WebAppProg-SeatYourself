@@ -96,7 +96,7 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OccasionId,Title,Description,Date,Time,Owner,CreatedAt,VenueId,CategoryId")] Occasion occasion)
+        public async Task<IActionResult> Edit(int id, [Bind("OccasionId,Title,Description,Date,Time,Owner,VenueId,CategoryId")] Occasion occasion)
         {
             if (id != occasion.OccasionId)
             {

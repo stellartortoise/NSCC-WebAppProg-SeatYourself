@@ -1,4 +1,6 @@
-﻿namespace NSCC_WebAppProg_SeatYourself.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace NSCC_WebAppProg_SeatYourself.Models
 {
     public class Occasion
     {
@@ -12,11 +14,14 @@
         public DateTime Date { get; set; }
         public DateTime Time { get; set; }
         public string Owner { get; set; } = string.Empty;
+        [Display(Name = "Created")]
         public DateTime CreatedAt { get; set; }
 
 
         //Foreign keys
+        [Display(Name = "Venue")]
         public int VenueId { get; set; }
+        [Display(Name = "Occasion")]
         public int CategoryId { get; set; }
         
 
