@@ -107,6 +107,7 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
             {
                 try
                 {
+                    occasion.CreatedAt = DateTime.Now; // This will put the edited date/time, to keep the original created date/time it must be put into a variable? leaving this for now
                     _context.Update(occasion);
                     await _context.SaveChangesAsync();
                 }
