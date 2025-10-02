@@ -1,21 +1,24 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NSCC_WebAppProg_SeatYourself.Data;
 using NSCC_WebAppProg_SeatYourself.Models;
+using System.Diagnostics;
 
 namespace NSCC_WebAppProg_SeatYourself.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly NSCC_WebAppProg_SeatYourselfContext _context;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(NSCC_WebAppProg_SeatYourselfContext context,ILogger<HomeController> logger)
         {
+            _context = context;
             _logger = logger;
         }
-
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _context.Occasion.Include(o => o.Venue).ToListAsync());
         }
 
         public IActionResult Privacy()
