@@ -35,3 +35,37 @@ body {
     min-width: 425px;
     min-height: 350px;
 }
+
+.navbar-brand img {
+    transition: transform 0.3s ease-in-out; 
+}
+
+.navbar-brand:hover img {
+    transform: scale(1.15); 
+}
+
+.navbar .nav-link {
+    transition: transform 0.3s ease;
+    display: inline-block;
+    color: #0f4e32 !important; 
+    font-size: 18px;
+    text-align: center;
+}
+
+.navbar:hover .nav-link:hover {
+    color: #32cb88 !important;
+    transform: scale(1.1);
+    text-align: center;
+}
+
+a {
+    color: #29a46e !important;
+}
+
+a:hover {
+    color: #32cb88 !important;
+}
+
+.btn-success {
+    color: white !important;
+}
