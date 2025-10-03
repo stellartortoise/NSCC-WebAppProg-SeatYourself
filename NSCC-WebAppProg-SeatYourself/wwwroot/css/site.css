@@ -1,3 +1,8 @@
+
+:root {
+    --bg-accent-color: #f1f1f1;
+}
+
 html {
   font-size: 14px;
 }
@@ -20,6 +25,14 @@ html {
 body {
     margin-bottom: 60px;
 /*    background-color: #ccfee8;*/
+
+}
+
+footer {
+    background-color: var(--bg-accent-color);
+/*    position: relative;
+    margin-bottom: 35%;
+    height: 30px;*/
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -41,7 +54,11 @@ body {
 }
 
 .navbar-brand:hover img {
-    transform: scale(1.15); 
+    transform: scale(1.1); 
+}
+
+.navbar.bg-white {
+    background-color: var(--bg-accent-color) !important;
 }
 
 .navbar .nav-link {
@@ -69,3 +86,4 @@ a:hover {
 .btn-success {
     color: white !important;
 }
+
