@@ -18,7 +18,10 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Occasion.Include(o => o.Venue).ToListAsync());
+            return View(await _context.Occasion
+                .Include(o => o.Venue)
+                .OrderBy(o => o.Date)
+                .ToListAsync());
         }
 
         public IActionResult Privacy()
