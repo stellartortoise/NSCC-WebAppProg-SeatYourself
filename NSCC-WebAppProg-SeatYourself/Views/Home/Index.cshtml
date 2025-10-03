@@ -8,7 +8,8 @@
 <br />
 <br />
 
-<div class="row row-cols-2 row-cols-md-3 g-4">
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     
     @foreach (var occasion in Model)
     {
@@ -31,7 +32,7 @@
                     </div>
 
                     <div class="text-center mt-3">
-                        <a asp-controller="Occasions" asp-action="Details" asp-route-id="@occasion.OccasionId" class="btn btn-primary m-1">View Details</a>
+                        <a asp-controller="Occasions" asp-action="Details" asp-route-id="@occasion.OccasionId" class="btn btn-success m-1">View Details</a>
                         @* <a asp-controller="Tickets" asp-action="Create" asp-route-occasionId="@occasion.OccasionId" class="btn btn-success m-1">Get Tickets</a> *@
                     </div>
 

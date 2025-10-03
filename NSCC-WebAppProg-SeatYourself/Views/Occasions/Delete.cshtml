@@ -63,11 +63,14 @@
                     @Html.DisplayFor(model => model.Category.CategoryId)
                 </dd>
             </dl>
-    
+            
             <form asp-action="Delete">
                 <input type="hidden" asp-for="OccasionId" />
-                <input type="submit" value="Delete" class="btn btn-danger" /> |
-                <a asp-action="Index">Back to List</a>
+
+                <div class="text-center">
+                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                    <a asp-action="Index">Back to List</a>
+                </div>
             </form>
         </div>
     </div>
