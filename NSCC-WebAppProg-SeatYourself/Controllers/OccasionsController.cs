@@ -59,11 +59,36 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OccasionId,Title,Description,Date,Time,Owner,VenueId,CategoryId")] Occasion occasion)
+        public async Task<IActionResult> Create([Bind("OccasionId,Title,Description,Date,Time,Owner,VenueId,CategoryId,ImageFile")] Occasion occasion)
         {
             occasion.CreatedAt = DateTime.Now;
             if (ModelState.IsValid)
             {
+                //
+                //Step 1: Image upload code would go here
+                //
+                if (occasion.ImageFile != null && occasion.ImageFile.Length > 0)
+                {
+                    // Get the filename
+                    string filename =occasion.ImageFile.FileName;
+
+                    // Initialize the filename in the record
+                    occasion.Filename = filename;
+
+                    // Get the file path to save the file (C:\WebAppProg\NSCC-WebAppProg-SeatYourself\NSCC-WebAppProg-SeatYourself\wwwroot\Images\Uploads)
+                    string saveFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "Uploads", filename);
+
+                    //Save file
+                    using(FileStream fileStream = new FileStream(saveFilePath, FileMode.Create))
+                    {
+                        await occasion.ImageFile.CopyToAsync(fileStream);
+                    }
+                }
+
+                //
+                //Step 2: Save to database
+                //
+
                 _context.Add(occasion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NSCC_WebAppProg_SeatYourself.Models
 {
@@ -16,6 +18,9 @@ namespace NSCC_WebAppProg_SeatYourself.Models
         public string Owner { get; set; } = string.Empty;
         [Display(Name = "Created")]
         public DateTime CreatedAt { get; set; }
+        
+        // Image Filename
+        public string? Filename { get; set; }
 
 
         //Foreign keys
@@ -28,5 +33,9 @@ namespace NSCC_WebAppProg_SeatYourself.Models
         //Navigation properties
         public Venue? Venue { get; set; }
         public Category? Category { get; set; }
+
+        [NotMapped]
+        [DisplayName("Image")]
+        public IFormFile? ImageFile { get; set; }
     }
 }
