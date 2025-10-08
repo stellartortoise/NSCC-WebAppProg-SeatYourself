@@ -40,15 +40,26 @@
             </div>
             <!-- Image File-->
             <div class="mb-3">
+                <div class="card" style="width: 100%; min-height: 200px;">
+                    @if (!string.IsNullOrEmpty(Model.Filename))
+                    {
+                        <img src="/Images/Uploads/@Model.Filename" class="card-img-top" alt="Occasion Image" style="object-fit: contain; max-height: 200px;" />
+                        @* <div class="mt-2 text-secondary">
+                            Current file: @Model.Filename
+                        </div> *@
+                    }
+                    else
+                    {
+                        <div class="card-body text-center text-muted" style="height: 200px; display: flex; align-items: center; justify-content: center;">
+                            No image selected
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="mb-3">
                 <label asp-for="ImageFile" class="control-label"></label>
                 <input asp-for="ImageFile" class="form-control" />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
-                @if (!string.IsNullOrEmpty(Model.Filename))
-                {
-                    <div class="mt-2 text-secondary">
-                        Current file: @Model.Filename
-                    </div>
-                }
             </div>
             <div class="mb-3">
                 <label asp-for="VenueId" class="control-label"></label>

@@ -87,3 +87,11 @@ a:hover {
     color: white !important;
 }
 
+.e-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.e-card:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+

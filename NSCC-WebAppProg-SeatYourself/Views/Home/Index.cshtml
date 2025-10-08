@@ -14,8 +14,8 @@
     @foreach (var occasion in Model)
     {
         var venue = occasion.Venue;
-    
-        <div class="col">
+
+        <div class="col e-card">
             <div class="card text-white h-100 shadow-sm">
                 @if (!String.IsNullOrEmpty(occasion.Filename))
                 {
