@@ -17,8 +17,15 @@
     
         <div class="col">
             <div class="card text-white h-100 shadow-sm">
-
-                <img src="@venue.ImagePath" class="card-img" alt="@occasion.Title" style="object-fit: cover; height: 100%; filter: brightness(0.3);">
+                @if (!String.IsNullOrEmpty(occasion.Filename))
+                {
+                    <img src="/Images/Uploads/@occasion.Filename" class="card-img" alt="@occasion.Title" style="object-fit: cover; height: 100%; filter: brightness(0.3);">
+                }
+                else
+                {
+                    <img src="@venue.ImagePath" class="card-img" alt="@occasion.Title" style="object-fit: cover; height: 100%; filter: brightness(0.3);">
+                }
+                
 
                 <div class="card-img-overlay d-flex flex-column justify-content-between p-4">
 

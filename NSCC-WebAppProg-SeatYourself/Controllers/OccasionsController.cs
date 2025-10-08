@@ -69,8 +69,8 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
                 //
                 if (occasion.ImageFile != null && occasion.ImageFile.Length > 0)
                 {
-                    // Get the filename
-                    string filename =occasion.ImageFile.FileName;
+                    // Create a unique filename using a GUID and the original file extension
+                    string filename = Guid.NewGuid().ToString() + Path.GetExtension(occasion.ImageFile.FileName); //ex. guid: 234234-23423-4234234-23423.jpg    
 
                     // Initialize the filename in the record
                     occasion.Filename = filename;
@@ -91,7 +91,7 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
 
                 _context.Add(occasion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)); // Need to move below?
             }
             ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "CategoryId", "Name");
             ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "Name");
@@ -121,7 +121,7 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OccasionId,Title,Description,Date,Time,Owner,VenueId,CategoryId")] Occasion occasion)
+        public async Task<IActionResult> Edit(int id, [Bind("OccasionId,Title,Description,Date,Time,Owner,VenueId,CategoryId,ImageFile")] Occasion occasion)
         {
             if (id != occasion.OccasionId)
             {
@@ -132,6 +132,31 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
             {
                 try
                 {
+                    //
+                    //Step 1: Image upload code would go here
+                    //
+                    if (occasion.ImageFile != null && occasion.ImageFile.Length > 0)
+                    {
+                        // Create a unique filename using a GUID and the original file extension
+                        string filename = Guid.NewGuid().ToString() + Path.GetExtension(occasion.ImageFile.FileName); //ex. guid: 234234-23423-4234234-23423.jpg    
+
+                        // Initialize the filename in the record
+                        occasion.Filename = filename;
+
+                        // Get the file path to save the file (C:\WebAppProg\NSCC-WebAppProg-SeatYourself\NSCC-WebAppProg-SeatYourself\wwwroot\Images\Uploads)
+                        string saveFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "Uploads", filename);
+
+                        //Save file
+                        using (FileStream fileStream = new FileStream(saveFilePath, FileMode.Create))
+                        {
+                            await occasion.ImageFile.CopyToAsync(fileStream);
+                        }
+                    }
+
+                    //
+                    //Step 2: Save to database
+                    //
+                    
                     occasion.CreatedAt = DateTime.Now; // This will put the edited date/time, to keep the original created date/time it must be put into a variable? leaving this for now
                     _context.Update(occasion);
                     await _context.SaveChangesAsync();
