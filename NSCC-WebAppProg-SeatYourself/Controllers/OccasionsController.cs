@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NSCC_WebAppProg_SeatYourself.Data;
 using NSCC_WebAppProg_SeatYourself.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NSCC_WebAppProg_SeatYourself.Controllers
 {
@@ -69,6 +70,7 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
                 //
                 if (occasion.ImageFile != null && occasion.ImageFile.Length > 0)
                 {
+
                     // Create a unique filename using a GUID and the original file extension
                     string filename = Guid.NewGuid().ToString() + Path.GetExtension(occasion.ImageFile.FileName); //ex. guid: 234234-23423-4234234-23423.jpg    
 
@@ -83,6 +85,9 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
                     {
                         await occasion.ImageFile.CopyToAsync(fileStream);
                     }
+
+                    //delete the old file
+
                 }
 
                 //
@@ -123,6 +128,8 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("OccasionId,Title,Description,Date,Time,Owner,VenueId,CategoryId,ImageFile")] Occasion occasion)
         {
+            //var existingOccasion = await _context.Occasion.FindAsync(id);
+
             if (id != occasion.OccasionId)
             {
                 return NotFound();
@@ -137,6 +144,21 @@ namespace NSCC_WebAppProg_SeatYourself.Controllers
                     //
                     if (occasion.ImageFile != null && occasion.ImageFile.Length > 0)
                     {
+                        //string oldFilename = occasion.ImageFile.FileName;
+
+                        // Delete old file if it exists
+                        //if (!string.IsNullOrEmpty(existingOccasion?.Filename))
+                        //{
+                        //    string oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "Uploads", existingOccasion.Filename);
+                        //    if (System.IO.File.Exists(oldFilePath))
+                        //    {
+                        //        System.IO.File.Delete(oldFilePath);
+                        //    }
+                        //}
+
+                        //Find old file if it exists
+                        //var existingOccasion = await _context.Occasion.FindAsync(id);
+
                         // Create a unique filename using a GUID and the original file extension
                         string filename = Guid.NewGuid().ToString() + Path.GetExtension(occasion.ImageFile.FileName); //ex. guid: 234234-23423-4234234-23423.jpg    
 
