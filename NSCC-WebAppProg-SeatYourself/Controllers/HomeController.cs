@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NSCC_WebAppProg_SeatYourself.Data;
@@ -6,6 +7,7 @@ using System.Diagnostics;
 
 namespace NSCC_WebAppProg_SeatYourself.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly NSCC_WebAppProg_SeatYourselfContext _context;
